@@ -1,0 +1,22 @@
+{
+    "name": "ktakayama/swa",
+    "description": "Sign in with Apple",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Kyosuke Takayama",
+            "email": "loiseau@gmail.com"
+        }
+    ],
+    "license": [
+        "MIT"
+    ],
+    "require": {
+        "lcobucci/jwt": "^3.3"
+    },
+    "autoload": {
+        "psr-0": {
+            "SWA\\": "src"
+        }
+    }
+}

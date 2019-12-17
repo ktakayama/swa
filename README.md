@@ -1,4 +1,9 @@
-Sign in with Apple.
+# Sign in with Apple
+
+## Installation
+`composer require ktakayama/swa`
+
+## Usage
 
 ```php
 $code = ...
@@ -6,7 +11,7 @@ $redirect_uri = ...
 
 $key = <<<EOT
 -----BEGIN PRIVATE KEY-----
-....
+YOUR PRIVATE KEY
 -----END PRIVATE KEY-----
 EOT;
 
@@ -28,3 +33,4 @@ $access_token = $response->getAccessToken();
 echo $email . "\n";
 echo $access_token . "\n";
 ```
+

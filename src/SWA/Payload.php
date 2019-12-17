@@ -6,49 +6,58 @@ final class Payload
 {
     private $json;
 
-    function __construct($payload) {
+    public function __construct($payload)
+    {
         $this->json = json_decode($payload);
     }
 
-    function get($key) {
+    public function get($key)
+    {
         return $this->json->{$key};
     }
 
-    function getIss() {
+    public function getIss()
+    {
         return $this->get('iss');
     }
 
-    function getAud() {
+    public function getAud()
+    {
         return $this->get('aud');
     }
 
-    function getExp() {
+    public function getExp()
+    {
         return $this->get('exp');
     }
 
-    function getIat() {
+    public function getIat()
+    {
         return $this->get('iat');
     }
 
-    function getSub() {
+    public function getSub()
+    {
         return $this->get('sub');
     }
 
-    function getEmail() {
+    public function getEmail()
+    {
         return $this->get('email');
     }
 
-    function getEmailVerified() {
+    public function getEmailVerified()
+    {
         return $this->get('email_verified');
     }
 
-    function getIsPrivate() {
+    public function getIsPrivate()
+    {
         return $this->get('is_private_email');
     }
 
-    function getAuthTime() {
+    public function getAuthTime()
+    {
         return $this->get('auth_time');
     }
-
 }
-

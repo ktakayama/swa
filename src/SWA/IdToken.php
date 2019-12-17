@@ -8,25 +8,26 @@ final class IdToken
     private $payload;
     private $sign;
 
-    function __construct($id_token) {
+    public function __construct($id_token)
+    {
         [ $header, $payload, $sign ] = explode('.', $id_token, 3);
         $this->header  = base64_decode($header);
         $this->payload = base64_decode($payload);
         $this->sign    = base64_decode($sign);
     }
 
-    function getHeader() {
+    public function getHeader()
+    {
         return $this->header;
     }
 
-    function getPayload() {
+    public function getPayload()
+    {
         return new \SWA\Payload($this->payload);
     }
 
-    function getSign() {
+    public function getSign()
+    {
         return $this->sign;
     }
-
 }
-
-

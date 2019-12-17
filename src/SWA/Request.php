@@ -8,11 +8,13 @@ final class Request
 {
     private $jwt;
 
-    function __construct($jwt) {
+    public function __construct($jwt)
+    {
         $this->jwt = $jwt;
     }
 
-    function getAuthorizationCode($code, $redirect_uri) {
+    public function getAuthorizationCode($code, $redirect_uri)
+    {
         return $this->authTokenRequest([
             'code' => $code,
             'grant_type' => 'authorization_code',
@@ -20,14 +22,16 @@ final class Request
         ]);
     }
 
-    function getAccessToken($refresh_token) {
+    public function getAccessToken($refresh_token)
+    {
         return $this->authTokenRequest([
             'grant_type' => 'refresh_token',
             'refresh_token' => $refresh_token,
         ]);
     }
 
-    private function authTokenRequest($params) {
+    private function authTokenRequest($params)
+    {
         $api = 'https://appleid.apple.com/auth/token';
 
         $secret = $this->jwt->getClientSecret();
@@ -35,7 +39,7 @@ final class Request
         $params['client_secret'] = (string)$secret;
 
         $ch = curl_init();
-        curl_setopt_array ($ch, [
+        curl_setopt_array($ch, [
             CURLOPT_URL => $api,
             CURLOPT_POSTFIELDS => http_build_query($params),
             CURLOPT_RETURNTRANSFER => true
@@ -44,12 +48,10 @@ final class Request
         curl_close($ch);
         $response = json_decode($body);
 
-        if(isset($response->{'error'})) {
+        if (isset($response->{'error'})) {
             throw new Exception($response->{'error'});
         }
 
         return (new \SWA\TokenResponse($response));
     }
-
 }
-

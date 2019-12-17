@@ -6,20 +6,23 @@ final class TokenResponse
 {
     private $json;
 
-    function __construct($json) {
+    public function __construct($json)
+    {
         $this->json = $json;
     }
 
-    function getAccessToken() {
+    public function getAccessToken()
+    {
         return $this->json->{'access_token'};
     }
 
-    function getRefreshToken() {
+    public function getRefreshToken()
+    {
         return $this->json->{'refresh_token'};
     }
 
-    function getIdToken() {
+    public function getIdToken()
+    {
         return new \SWA\IdToken($this->json->{'id_token'});
     }
 }
-

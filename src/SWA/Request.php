@@ -2,6 +2,8 @@
 
 namespace SWA;
 
+use \Exception;
+
 final class Request
 {
     private $jwt;
@@ -38,8 +40,13 @@ final class Request
             CURLOPT_POSTFIELDS => http_build_query($params),
             CURLOPT_RETURNTRANSFER => true
         ]);
-        $response = curl_exec($ch);
-        curl_close ($ch);
+        $body = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($body);
+
+        if(isset($response->{'error'})) {
+            throw new Exception($response->{'error'});
+        }
 
         return (new \SWA\TokenResponse($response));
     }

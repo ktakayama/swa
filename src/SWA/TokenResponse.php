@@ -6,8 +6,8 @@ final class TokenResponse
 {
     private $json;
 
-    function __construct($response) {
-        $this->json = json_decode($response);
+    function __construct($json) {
+        $this->json = $json;
     }
 
     function getAccessToken() {

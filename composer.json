@@ -12,7 +12,8 @@
         "MIT"
     ],
     "require": {
-        "lcobucci/jwt": "^3.3"
+        "lcobucci/jwt": "^3.3",
+        "codercat/jwk-to-pem": "^0.0.3"
     },
     "autoload": {
         "psr-0": {

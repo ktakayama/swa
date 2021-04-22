@@ -13,7 +13,7 @@ final class Payload
 
     public function get($key)
     {
-        return $this->json->{$key};
+        return isset($this->json->{$key}) ? $this->json->{$key} : null;
     }
 
     public function getIss()

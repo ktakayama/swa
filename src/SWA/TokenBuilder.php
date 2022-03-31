@@ -2,8 +2,9 @@
 
 namespace SWA;
 
-use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Ecdsa\Sha256;
+use Lcobucci\JWT\Signer\Key\InMemory;
 
 final class TokenBuilder
 {
@@ -60,15 +61,13 @@ final class TokenBuilder
         $issued_at = $this->issued_at ? $this->issued_at : time();
         $expiration = $this->expiration ? $this->expiration : ($issued_at + 3600);
 
-        $signer = new Sha256();
-        $token = (new Builder())->setHeader('kid', $this->key_id)
-                                ->setIssuer($this->team_id)
-                                ->setAudience('https://appleid.apple.com')
-                                ->setIssuedAt($issued_at)
-                                ->setExpiration($expiration)
-                                ->set('sub', $this->client_id)
-                                ->sign($signer, $this->private_key)
-                                ->getToken();
-        return $token;
+        $config = Configuration::forSymmetricSigner(new Sha256(), InMemory::plainText($this->private_key));
+        return $config->builder()->withHeader('kid', $this->key_id)
+            ->issuedBy($this->team_id)
+            ->permittedFor('https://appleid.apple.com')
+            ->issuedAt((new \DateTimeImmutable())->setTimestamp($issued_at))
+            ->expiresAt((new \DateTimeImmutable())->setTimestamp($expiration))
+            ->relatedTo($this->client_id)
+            ->getToken(new Sha256(), InMemory::plainText($this->private_key));
     }
 }

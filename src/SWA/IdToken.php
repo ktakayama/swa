@@ -2,6 +2,8 @@
 
 namespace SWA;
 
+use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 use CoderCat\JWKToPEM\JWKConverter;
 
@@ -50,8 +52,8 @@ final class IdToken
             }
         }
 
-        $payload = $this->header . "." . $this->payload;
-        return (new \Lcobucci\JWT\Signature($this->getSign()))->verify(new Sha256(), $payload, $pem);
+        $config = Configuration::forSymmetricSigner(new Sha256(), InMemory::plainText($pem));
+        return $config->signer()->verify($this->getSign(), $this->header . "." . $this->payload, $config->signingKey());
     }
 
     private function decode($str)

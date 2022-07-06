@@ -61,7 +61,7 @@ final class TokenBuilder
         $issued_at = $this->issued_at ? $this->issued_at : time();
         $expiration = $this->expiration ? $this->expiration : ($issued_at + 3600);
 
-        $config = Configuration::forSymmetricSigner(new Sha256(), InMemory::plainText($this->private_key));
+        $config = Configuration::forSymmetricSigner(Sha256::create(), InMemory::plainText($this->private_key));
         return $config->builder()->withHeader('kid', $this->key_id)
             ->issuedBy($this->team_id)
             ->permittedFor('https://appleid.apple.com')

@@ -68,6 +68,6 @@ final class TokenBuilder
             ->issuedAt((new \DateTimeImmutable())->setTimestamp($issued_at))
             ->expiresAt((new \DateTimeImmutable())->setTimestamp($expiration))
             ->relatedTo($this->client_id)
-            ->getToken(new Sha256(), InMemory::plainText($this->private_key));
+            ->getToken(Sha256::create(), InMemory::plainText($this->private_key));
     }
 }

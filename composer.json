@@ -12,7 +12,7 @@
         "MIT"
     ],
     "require": {
-        "lcobucci/jwt": "^4.0",
+        "lcobucci/jwt": "^5.0",
         "codercat/jwk-to-pem": "^1.0"
     },
     "autoload": {
